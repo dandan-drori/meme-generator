@@ -40,13 +40,10 @@ function drawText() {
 		gCtx.strokeText(txt, x, y)
 
 		if (idx === selectedLineIdx) {
-			gCtx.rect(30, y - size - 10, gElCanvas.width - 60, 100)
-			gCtx.stroke()
+			// gCtx.rect(30, y - size - 10, gElCanvas.width - 60, 100)
+			// gCtx.stroke()
+			gCtx.fillStyle = 'red'
+			gCtx.fillText(txt, x, y)
 		}
-		// else {
-		// 	gCtx.strokeStyle = 'rgba(0,0,0,0)'
-		// 	gCtx.rect(30, y - size - 10, gElCanvas.width - 60, 100)
-		// 	gCtx.stroke()
-		// }
 	})
 }
