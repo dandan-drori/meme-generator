@@ -20,12 +20,12 @@
 			</ul>
 		</nav>
 		<main class="gallery grid">
-			<img src="img/MEMES/1.jpg" alt="meme" />
-			<img src="img/MEMES/2.jpg" alt="meme" />
-			<img src="img/MEMES/3.jpg" alt="meme" />
-			<img src="img/MEMES/4.jpg" alt="meme" />
-			<img src="img/MEMES/5.jpg" alt="meme" />
-			<img src="img/MEMES/6.jpg" alt="meme" />
+			<img src="img/MEMES/1.jpg" alt="meme" onclick="onUpdateMeme(this.src)" />
+			<img src="img/MEMES/2.jpg" alt="meme" onclick="onUpdateMeme(this.src)" />
+			<img src="img/MEMES/3.jpg" alt="meme" onclick="onUpdateMeme(this.src)" />
+			<img src="img/MEMES/4.jpg" alt="meme" onclick="onUpdateMeme(this.src)" />
+			<img src="img/MEMES/5.jpg" alt="meme" onclick="onUpdateMeme(this.src)" />
+			<img src="img/MEMES/6.jpg" alt="meme" onclick="onUpdateMeme(this.src)" />
 		</main>
 		<section class="image-editor flex align-center justify-between">
 			<div class="canvas-container">
@@ -33,15 +33,20 @@
 			</div>
 			<section class="control-box">
 				<h2>Edit Controls</h2>
-				<input type="text" placeholder="Text line" onchange="onChangeText(this.value)" />
+				<input
+					type="text"
+					placeholder="Text line"
+					name="meme-text"
+					oninput="onChangeText(this.value)"
+				/>
 				<div class="controls-first-row">
-					<button class="move-line-down">
+					<button class="move-line-down" onclick="onMoveLineDown()">
 						<p>🠗</p>
 					</button>
-					<button class="move-line-up">
+					<button class="move-line-up" onclick="onMoveLineUp()">
 						<p>🠕</p>
 					</button>
-					<button class="switch-line">
+					<button class="switch-line" onclick="onSwitchLine()">
 						<img
 							src="img/ICONS/up-and-down-opposite-double-arrows-side-by-side.png"
 							alt="switch lines"
@@ -54,10 +59,10 @@
 						<img src="img/ICONS/trash.png" alt="delete line" />
 					</button>
 				</div>
-				<button class="increase-font-size">
+				<button class="increase-font-size" onclick="onIncreaseFont()">
 					<img src="img/ICONS/increase font - icon.png" alt="increase font size" />
 				</button>
-				<button class="decrease-font-size">
+				<button class="decrease-font-size" onclick="onDecreaseFont()">
 					<img src="img/ICONS/decrease font - icon.png" alt="decrease font size" />
 				</button>
 				<button class="align-text-left">

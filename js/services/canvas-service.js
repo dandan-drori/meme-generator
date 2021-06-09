@@ -22,33 +22,31 @@ function resizeCanvas(elContainer) {
 }
 
 function drawText() {
-	// get line properties to draw
 	const lines = getLines()
-	const idx = getSelectedLineIdx()
-	const { txt, size, align, txtColor, strokeColor } = lines[idx]
+	const selectedLineIdx = getSelectedLineIdx()
+	lines.forEach((line, idx) => {
+		const { txt, size, align, txtColor, strokeColor, top } = line
 
-	// gCtx.textAlign = 'center'
-	var x, y
+		// determine text position
+		const x = gElCanvas.width / 2
+		const y = idx === 0 ? top : idx === 1 ? gElCanvas.height - top / 2 : gElCanvas.height / 2
 
-	switch (align) {
-		case 'left':
-			x = 10
-			y = 10
-			break
-		case 'right':
-			x = gElCanvas.width - 10
-			break
-		// default:
-		// x = 150
-		// break
-	}
-	x = 120
-	y = 100
-	console.log('gElCanvas.width', gElCanvas.width)
-	gCtx.lineWidth = 2
-	gCtx.font = `${size}px Impact`
-	gCtx.fillStyle = txtColor
-	gCtx.fillText(txt, x, y)
-	gCtx.strokeStyle = strokeColor
-	gCtx.strokeText(txt, x, y)
+		gCtx.textAlign = align
+		gCtx.lineWidth = 2
+		gCtx.font = `${size}px Impact`
+		gCtx.fillStyle = txtColor
+		gCtx.fillText(txt, x, y)
+		gCtx.strokeStyle = strokeColor
+		gCtx.strokeText(txt, x, y)
+
+		if (idx === selectedLineIdx) {
+			gCtx.rect(30, y - size - 10, gElCanvas.width - 60, 100)
+			gCtx.stroke()
+		}
+		// else {
+		// 	gCtx.strokeStyle = 'rgba(0,0,0,0)'
+		// 	gCtx.rect(30, y - size - 10, gElCanvas.width - 60, 100)
+		// 	gCtx.stroke()
+		// }
+	})
 }
