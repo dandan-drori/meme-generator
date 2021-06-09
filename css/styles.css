@@ -1,3 +1,95 @@
+html {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
 body {
 	background-color: lightcoral;
 }
+
+/* HELPERS */
+
+.grid {
+	display: grid;
+}
+
+/* flexbox */
+
+.flex {
+	display: flex;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.align-center {
+	align-items: center;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+/* CONTENT */
+
+/* gallery */
+
+.gallery {
+	grid-template-columns: repeat(auto-fill, 15rem);
+	grid-auto-rows: 15rem;
+	gap: 15px;
+	padding: 0 15px;
+}
+
+.gallery > img {
+	width: 15rem;
+}
+
+/* image-editor */
+
+.image-editor {
+	margin-top: 20px;
+	padding: 0 20px;
+}
+
+/* canvas */
+
+.canvas-container {
+	background-color: deepskyblue;
+	width: 50vw;
+	height: 50vw;
+	border: 1px solid black;
+}
+
+.canvas {
+	display: block;
+	margin: 0 auto;
+}
+
+/* control-box */
+
+.control-box {
+	border: 1px solid black;
+	width: 50vw;
+	height: 50vw;
+	padding: 15px;
+}
+
+.control-box button > img {
+	width: 2rem;
+}
+
+.control-box button > p {
+	width: 2rem;
+	font-size: 1.3rem;
+}
+
+/* media queries */
