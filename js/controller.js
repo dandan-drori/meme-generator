@@ -18,8 +18,9 @@ function onChangeText(text) {
 
 function onUpdateMeme(imgSrc) {
 	const imgFileName = imgSrc.split('MEMES/')[1]
-	const imgId = imgFileName[0]
+	const imgId = imgFileName.split('.')[0]
 	setSelectedImgId(imgId)
+	showImageEditor()
 	drawImage()
 }
 
@@ -46,4 +47,9 @@ function onMoveLineDown() {
 function onSwitchLine() {
 	switchLine()
 	drawImage()
+}
+
+function showImageEditor() {
+	document.querySelector('.image-editor').style.display = 'flex'
+	document.querySelector('.gallery').style.display = 'none'
 }

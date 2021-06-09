@@ -8,9 +8,11 @@
 		<title>Meme Generator</title>
 	</head>
 	<body onload="init()">
-		<nav>
-			<div class="logo">Logo</div>
-			<ul>
+		<nav class="main-nav flex align-center justify-between">
+			<article class="logo">
+				<a href="#">Next Gen Meme</a>
+			</article>
+			<ul class="nav-list flex align-center justify-center">
 				<li>
 					<a href="#">gallery</a>
 				</li>
@@ -19,13 +21,79 @@
 				</li>
 			</ul>
 		</nav>
+		<h1>Select an image to begin:</h1>
 		<main class="gallery grid">
-			<img src="img/MEMES/1.jpg" alt="meme" onclick="onUpdateMeme(this.src)" />
-			<img src="img/MEMES/2.jpg" alt="meme" onclick="onUpdateMeme(this.src)" />
-			<img src="img/MEMES/3.jpg" alt="meme" onclick="onUpdateMeme(this.src)" />
-			<img src="img/MEMES/4.jpg" alt="meme" onclick="onUpdateMeme(this.src)" />
-			<img src="img/MEMES/5.jpg" alt="meme" onclick="onUpdateMeme(this.src)" />
-			<img src="img/MEMES/6.jpg" alt="meme" onclick="onUpdateMeme(this.src)" />
+			<article>
+				<img src="img/MEMES/1.jpg" alt="trump" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/2.jpg" alt="dogs" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/3.jpg" alt="baby and dog" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/4.jpg" alt="cat on keyboard" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/5.jpg" alt="baby success" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/6.jpg" alt="that big" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/7.jpg" alt="surprised" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/8.jpg" alt="tell me more" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/9.jpg" alt="evil" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/10.jpg" alt="laughing" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/11.jpg" alt="together" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/12.jpg" alt="you" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/13.jpg" alt="toast" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/14.jpg" alt="what if i told you" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/15.jpg" alt="one does not simply" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/16.jpg" alt="laughing at you" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/17.jpg" alt="putin" onclick="onUpdateMeme(this.src)" />
+			</article>
+
+			<article>
+				<img src="img/MEMES/18.jpg" alt="Buzz lightyear" onclick="onUpdateMeme(this.src)" />
+			</article>
 		</main>
 		<section class="image-editor flex align-center justify-between">
 			<div class="canvas-container">
@@ -79,6 +147,14 @@
 				</button>
 			</section>
 		</section>
+		<footer class="main-footer flex align-center justify-between">
+			<article class="logo">
+				<a href="#">Next Gen Meme</a>
+			</article>
+			<section class="copyright-container">
+				<article class="copyright">Copyright &copy; Dandan Drori LTD. 2021</article>
+			</section>
+		</footer>
 		<script src="js/services/utils-service.js"></script>
 		<script src="js/services/storage-service.js"></script>
 		<script src="js/services/upload-service.js"></script>
