@@ -29,7 +29,6 @@ function drawText() {
 		const { txt, size, align, txtColor, strokeColor, top } = line
 
 		// determine text position
-		// const x = gElCanvas.width / 2
 		const x =
 			align === 'left' ? 100 : align === 'right' ? gElCanvas.width - 100 : gElCanvas.width / 2
 		const y =

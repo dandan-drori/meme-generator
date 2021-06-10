@@ -1,74 +1,125 @@
-var gKeywordsCountMap = { happy: 12, 'funny puk': 1 }
+var gKeywordsCountMap = {
+	trump: 0,
+	president: 0,
+	leader: 0,
+	dog: 0,
+	dogs: 0,
+	lick: 0,
+	love: 0,
+	baby: 0,
+	bed: 0,
+	sleep: 0,
+	cat: 0,
+	keyboard: 0,
+	fist: 0,
+	success: 0,
+	hands: 0,
+	big: 0,
+	size: 0,
+	surprised: 0,
+	shocked: 0,
+	kid: 0,
+	more: 0,
+	fake: 0,
+	evil: 0,
+	mean: 0,
+	laughing: 0,
+	laugh: 0,
+	crazy: 0,
+	together: 0,
+	wrestling: 0,
+	fight: 0,
+	hug: 0,
+	you: 0,
+	choose: 0,
+	fingers: 0,
+	toast: 0,
+	glass: 0,
+	wine: 0,
+	leonardo: 0,
+	dicaprio: 0,
+	'what if': 0,
+	'i told you': 0,
+	sunglasses: 0,
+	'one does not simply': 0,
+	hilarious: 0,
+	joke: 0,
+	putin: 0,
+	peace: 0,
+	'buzz lightyear': 0,
+	woody: 0,
+	toystory: 0,
+}
 var gImgs = [
 	{
 		id: 1,
 		url: 'img/MEMES/1.jpg',
-		keywords: ['trump'],
+		keywords: ['trump', 'president', 'leader'],
 	},
 	{
 		id: 2,
 		url: 'img/MEMES/2.jpg',
-		keywords: ['dogs'],
+		keywords: ['dog', 'dogs', 'lick', 'love'],
 	},
 	{
 		id: 3,
 		url: 'img/MEMES/3.jpg',
-		keywords: ['baby and dog'],
+		keywords: ['baby', 'dog', 'bed', 'sleep'],
 	},
 	{
 		id: 4,
 		url: 'img/MEMES/4.jpg',
-		keywords: ['cat on keyboard'],
+		keywords: ['cat', 'sleep', 'keyboard'],
 	},
 	{
 		id: 5,
 		url: 'img/MEMES/5.jpg',
-		keywords: ['baby success'],
+		keywords: ['baby', 'fist', 'success'],
 	},
 	{
 		id: 6,
 		url: 'img/MEMES/6.jpg',
-		keywords: ['that big'],
+		keywords: ['hands', 'big', 'size'],
 	},
 	{
 		id: 7,
 		url: 'img/MEMES/7.jpg',
-		keywords: ['surprised'],
+		keywords: ['surprised', 'shocked', 'kid'],
 	},
 	{
 		id: 8,
 		url: 'img/MEMES/8.jpg',
-		keywords: ['tell me more'],
+		keywords: ['more', 'fake'],
 	},
 	{
 		id: 9,
 		url: 'img/MEMES/9.jpg',
-		keywords: ['evil'],
+		keywords: ['evil', 'mean'],
 	},
 	{
 		id: 10,
 		url: 'img/MEMES/10.jpg',
-		keywords: ['laughing'],
+		keywords: ['laughing', 'laugh', 'crazy'],
 	},
 	{
 		id: 11,
 		url: 'img/MEMES/11.jpg',
-		keywords: ['together'],
+		keywords: ['together', 'wrestling', 'fight', 'hug'],
 	},
 	{
 		id: 12,
 		url: 'img/MEMES/12.jpg',
-		keywords: ['you'],
+		keywords: ['you', 'choose', 'fingers'],
 	},
 	{
 		id: 13,
 		url: 'img/MEMES/13.jpg',
-		keywords: ['toast'],
+		keywords: ['toast', 'glass', 'wine', 'leonardo', 'dicaprio'],
 	},
 	{
 		id: 14,
 		url: 'img/MEMES/14.jpg',
-		keywords: ['what if i told you'],
+		keywords: ['what if', 'i told you', 'sunglasses'],
 	},
 	{
 		id: 15,
@@ -78,17 +129,17 @@ var gImgs = [
 	{
 		id: 16,
 		url: 'img/MEMES/16.jpg',
-		keywords: ['laughing at you'],
+		keywords: ['laughing', 'hilarious', 'joke'],
 	},
 	{
 		id: 17,
 		url: 'img/MEMES/17.jpg',
-		keywords: ['putin'],
+		keywords: ['putin', 'fingers', 'peace'],
 	},
 	{
 		id: 18,
 		url: 'img/MEMES/18.jpg',
-		keywords: ['Buzz lightyear'],
+		keywords: ['buzz lightyear', 'woody', 'toystory'],
 	},
 ]
 var gMeme = {
@@ -145,11 +196,13 @@ function decreaseFont() {
 }
 
 function moveLineUp() {
-	gMeme.lines[gMeme.selectedLineIdx].top -= 10
+	const diff = gMeme.selectedLineIdx === 1 ? -10 : 10
+	gMeme.lines[gMeme.selectedLineIdx].top -= diff
 }
 
 function moveLineDown() {
-	gMeme.lines[gMeme.selectedLineIdx].top += 10
+	const diff = gMeme.selectedLineIdx === 1 ? -10 : 10
+	gMeme.lines[gMeme.selectedLineIdx].top += diff
 }
 
 function switchLine() {
@@ -190,4 +243,27 @@ function setStrokeColor(color) {
 
 function setTxtAlignment(alignment) {
 	gMeme.lines[gMeme.selectedLineIdx].align = alignment
+}
+
+function setFilter(search) {
+	gImgs.forEach(img => {
+		var flag
+		img.keywords.forEach(keyword => {
+			if (keyword.toLowerCase().startsWith(search.toLowerCase())) {
+				flag = true
+			}
+			if (flag) {
+				img.passedSearch = true
+				gKeywordsCountMap[keyword]++
+			} else img.passedSearch = false
+		})
+	})
+}
+
+function getImgs() {
+	return gImgs
+}
+
+function getKeywordsMap() {
+	return gKeywordsCountMap
 }

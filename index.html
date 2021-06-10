@@ -21,79 +21,19 @@
 				</li>
 			</ul>
 		</nav>
-		<h1>Select an image to begin:</h1>
-		<main class="gallery grid">
-			<article>
-				<img src="img/MEMES/1.jpg" alt="trump" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/2.jpg" alt="dogs" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/3.jpg" alt="baby and dog" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/4.jpg" alt="cat on keyboard" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/5.jpg" alt="baby success" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/6.jpg" alt="that big" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/7.jpg" alt="surprised" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/8.jpg" alt="tell me more" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/9.jpg" alt="evil" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/10.jpg" alt="laughing" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/11.jpg" alt="together" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/12.jpg" alt="you" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/13.jpg" alt="toast" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/14.jpg" alt="what if i told you" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/15.jpg" alt="one does not simply" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/16.jpg" alt="laughing at you" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/17.jpg" alt="putin" onclick="onUpdateMeme(this.src)" />
-			</article>
-
-			<article>
-				<img src="img/MEMES/18.jpg" alt="Buzz lightyear" onclick="onUpdateMeme(this.src)" />
-			</article>
+		<main class="main-content">
+			<h1>Select an image to edit:</h1>
+			<header class="main-header flex align-center">
+				<input
+					type="search"
+					name="search"
+					placeholder="Search"
+					oninput="onSetFilter(this.value)"
+					autocomplete="off"
+				/>
+				<section class="keywords-container flex"></section>
+			</header>
+			<section class="gallery grid"></section>
 		</main>
 		<section class="image-editor flex align-center justify-between">
 			<div class="canvas-container">
@@ -149,6 +89,24 @@
 						<img src="img/ICONS/paint-board-and-brush.png" alt="text color" />
 					</button>
 				</section>
+
+				<div class="inputs">
+					<input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
+
+					<form
+						action=""
+						method="POST"
+						enctype="multipart/form-data"
+						onsubmit="uploadImg(this, event)"
+					>
+						<input name="img" id="imgData" type="hidden" />
+						<button class="btn" type="submit">Publish</button>
+						<a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">
+							Download as jpeg
+						</a>
+						<div class="share-container"></div>
+					</form>
+				</div>
 			</section>
 		</section>
 		<footer class="main-footer flex align-center justify-between">
