@@ -1,18 +1,13 @@
-function init() {
-	createCanvas()
-	onResizeCanvas()
-	drawImage()
-	window.addEventListener('resize', onResizeCanvas)
-}
+function init() {}
 
 function onResizeCanvas() {
 	const elContainer = document.querySelector('.canvas-container')
 	resizeCanvas(elContainer)
+	drawImage()
 }
 
 function onChangeText(text) {
-	const idx = getSelectedLineIdx()
-	setLineText(idx, text)
+	setLineText(text)
 	drawImage()
 }
 
@@ -50,6 +45,21 @@ function onSwitchLine() {
 }
 
 function showImageEditor() {
-	document.querySelector('.image-editor').style.display = 'flex'
 	document.querySelector('.gallery').style.display = 'none'
+	document.querySelector('.image-editor').style.display = 'flex'
+	createCanvas()
+	onResizeCanvas()
+	window.addEventListener('resize', onResizeCanvas)
+	// drawImage()
+}
+
+function onAddLine() {
+	addLine()
+	drawImage()
+}
+
+function onDeleteLine() {
+	deleteLine()
+	switchLine()
+	drawImage()
 }

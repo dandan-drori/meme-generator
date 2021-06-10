@@ -8,8 +8,9 @@ function createCanvas() {
 
 function drawImage() {
 	const id = getSelectedImgId()
+	const url = getImgUrlById(id)
 	const img = new Image()
-	img.src = `img/MEMES/${id}.jpg`
+	img.src = url
 	img.onload = () => {
 		gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 		drawText()
@@ -34,11 +35,18 @@ function drawText() {
 		gCtx.textAlign = align
 		gCtx.lineWidth = 2
 		gCtx.font = `${size}px Impact`
+		// CALCULATE SIZE ACCORDING TO TEXT LENGTH
+		// gCtx.font = `${size - txt.length * 0.9}px Impact`
 		gCtx.fillStyle = txtColor
+		// MEASURE TEXT BEFORE WRITING IT
+		// if (gCtx.measureText(txt).width > 430) {
+		// gCtx.font = `${size - 10}px Impact`
+		// }
 		gCtx.fillText(txt, x, y)
 		gCtx.strokeStyle = strokeColor
 		gCtx.strokeText(txt, x, y)
 
+		// highlight text
 		if (idx === selectedLineIdx) {
 			// gCtx.rect(30, y - size - 10, gElCanvas.width - 60, 100)
 			// gCtx.stroke()

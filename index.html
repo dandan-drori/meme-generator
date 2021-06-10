@@ -97,17 +97,17 @@
 		</main>
 		<section class="image-editor flex align-center justify-between">
 			<div class="canvas-container">
-				<canvas class="canvas" onclick="draw()"></canvas>
+				<canvas class="canvas"></canvas>
 			</div>
-			<section class="control-box">
-				<h2>Edit Controls</h2>
+			<section class="control-box flex flex-column justify-around align-center">
 				<input
 					type="text"
-					placeholder="Text line"
+					placeholder="Line text"
 					name="meme-text"
 					oninput="onChangeText(this.value)"
 				/>
-				<div class="controls-first-row">
+				<section class="control-buttons">
+					<!-- <article class="controls-first-row"> -->
 					<button class="move-line-down" onclick="onMoveLineDown()">
 						<p>🠗</p>
 					</button>
@@ -120,31 +120,37 @@
 							alt="switch lines"
 						/>
 					</button>
-					<button class="add-line">
+					<button class="add-line" onclick="onAddLine()">
 						<img src="img/ICONS/add.png" alt="add line" />
 					</button>
-					<button class="delete-line">
+					<button class="delete-line" onclick="onDeleteLine()">
 						<img src="img/ICONS/trash.png" alt="delete line" />
 					</button>
-				</div>
-				<button class="increase-font-size" onclick="onIncreaseFont()">
-					<img src="img/ICONS/increase font - icon.png" alt="increase font size" />
-				</button>
-				<button class="decrease-font-size" onclick="onDecreaseFont()">
-					<img src="img/ICONS/decrease font - icon.png" alt="decrease font size" />
-				</button>
-				<button class="align-text-left">
-					<img src="img/ICONS/align-to-left.png" alt="align to left" />
-				</button>
-				<button class="align-text-center">
-					<img src="img/ICONS/center-text-alignment.png" alt="align to center" />
-				</button>
-				<button class="align-text-right">
-					<img src="img/ICONS/align-to-right.png" alt="align to right" />
-				</button>
-				<button class="text-color">
-					<img src="img/ICONS/paint-board-and-brush.png" alt="text color" />
-				</button>
+					<button class="text-stroke" onclick="onSetTextStroke()">
+						<img src="img/ICONS/text stroke.png" alt="text stroke" />
+					</button>
+					<!-- </article> -->
+					<!-- <article class="controls-second-row"> -->
+					<button class="increase-font-size" onclick="onIncreaseFont()">
+						<img src="img/ICONS/increase font - icon.png" alt="increase font size" />
+					</button>
+					<button class="decrease-font-size" onclick="onDecreaseFont()">
+						<img src="img/ICONS/decrease font - icon.png" alt="decrease font size" />
+					</button>
+					<button class="align-text-left">
+						<img src="img/ICONS/align-to-left.png" alt="align to left" />
+					</button>
+					<button class="align-text-center">
+						<img src="img/ICONS/center-text-alignment.png" alt="align to center" />
+					</button>
+					<button class="align-text-right">
+						<img src="img/ICONS/align-to-right.png" alt="align to right" />
+					</button>
+					<button class="text-color">
+						<img src="img/ICONS/paint-board-and-brush.png" alt="text color" />
+					</button>
+					<!-- </article> -->
+				</section>
 			</section>
 		</section>
 		<footer class="main-footer flex align-center justify-between">

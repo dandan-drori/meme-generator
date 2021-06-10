@@ -14,12 +14,18 @@ html {
 
 body {
 	background-color: lightcoral;
+	position: relative;
+	overflow-x: hidden;
 }
 
 a {
 	color: #050505;
 	text-decoration: none;
 	font-size: 1.3rem;
+}
+
+button {
+	cursor: pointer;
 }
 
 /* HELPERS */
@@ -34,6 +40,10 @@ a {
 	display: flex;
 }
 
+.flex-column {
+	flex-direction: column;
+}
+
 .justify-center {
 	justify-content: center;
 }
@@ -44,6 +54,10 @@ a {
 
 .justify-between {
 	justify-content: space-between;
+}
+
+.justify-around {
+	justify-content: space-around;
 }
 
 /* CONTENT */
@@ -83,6 +97,7 @@ h1 {
 	gap: 15px;
 	padding: 15px;
 	justify-content: center;
+	padding-bottom: calc(7rem + 20px);
 }
 
 .gallery article {
@@ -105,15 +120,15 @@ h1 {
 
 .image-editor {
 	display: none;
-	margin-top: 20px;
-	padding: 0 20px;
+	padding: 20px;
+	padding-bottom: calc(7rem + 20px);
 }
 
 /* canvas */
 
 .canvas-container {
 	background-color: deepskyblue;
-	width: 70vw;
+	width: 60vw;
 	height: 50vw;
 	border: 1px solid black;
 }
@@ -127,21 +142,68 @@ h1 {
 
 .control-box {
 	border: 1px solid black;
-	width: 30vw;
+	width: 40vw;
 	height: 50vw;
 	padding: 15px;
 }
 
+.control-box input[name='meme-text'] {
+	border: none;
+	width: 100%;
+	padding: 0.5rem 0.3rem;
+	font-size: 1.1rem;
+	margin-bottom: 1rem;
+	border-radius: 0.5rem;
+}
+
+.control-box .control-buttons {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	gap: 15px;
+}
+
+.control-box .controls-first-row {
+	margin-bottom: 1rem;
+}
+
+.control-box button {
+	padding: 0.15rem;
+	border: none;
+	border-radius: 5px;
+	background-color: #fff;
+	overflow: hidden;
+	max-width: 4rem;
+}
+
+.control-box button:hover {
+	background-color: #ccc;
+}
+
+.control-box button:hover > img,
+.control-box button:hover > p {
+	transform: scale(1.2);
+}
+
 .control-box button > img {
-	width: 2rem;
+	width: 3rem;
+	transition: transform 0.3s;
 }
 
 .control-box button > p {
-	width: 2rem;
-	font-size: 1.3rem;
+	width: 3rem;
+	font-size: 2.3rem;
+	line-height: 1.4;
+	transition: transform 0.3s;
 }
 
+/* footer */
+
 .main-footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
 	height: 7rem;
 	padding: 0 3rem;
 	background-color: lightgreen;
@@ -154,8 +216,32 @@ h1 {
 
 /* media queries */
 
-@media (max-width: 550px) {
+@media (max-width: 1200px) {
+	html {
+		font-size: 15px;
+	}
+
+	.control-buttons {
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(3, 1fr);
+	}
+}
+
+@media (max-width: 690px) {
 	html {
 		font-size: 13px;
+	}
+
+	.image-editor {
+		flex-direction: column;
+	}
+
+	.canvas-container {
+		width: 95vw;
+	}
+
+	.control-box {
+		height: 30%;
+		width: 95vw;
 	}
 }
