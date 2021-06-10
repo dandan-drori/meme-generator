@@ -107,7 +107,6 @@
 					oninput="onChangeText(this.value)"
 				/>
 				<section class="control-buttons">
-					<!-- <article class="controls-first-row"> -->
 					<button class="move-line-down" onclick="onMoveLineDown()">
 						<p>🠗</p>
 					</button>
@@ -126,30 +125,29 @@
 					<button class="delete-line" onclick="onDeleteLine()">
 						<img src="img/ICONS/trash.png" alt="delete line" />
 					</button>
-					<button class="text-stroke" onclick="onSetTextStroke()">
+					<button class="text-stroke">
+						<input type="color" name="txt-stroke" onchange="onSetStrokeColor(this.value)" />
 						<img src="img/ICONS/text stroke.png" alt="text stroke" />
 					</button>
-					<!-- </article> -->
-					<!-- <article class="controls-second-row"> -->
 					<button class="increase-font-size" onclick="onIncreaseFont()">
 						<img src="img/ICONS/increase font - icon.png" alt="increase font size" />
 					</button>
 					<button class="decrease-font-size" onclick="onDecreaseFont()">
 						<img src="img/ICONS/decrease font - icon.png" alt="decrease font size" />
 					</button>
-					<button class="align-text-left">
+					<button class="align-text-left" onclick="onSetTxtAlignment('left')">
 						<img src="img/ICONS/align-to-left.png" alt="align to left" />
 					</button>
-					<button class="align-text-center">
+					<button class="align-text-center" onclick="onSetTxtAlignment('center')">
 						<img src="img/ICONS/center-text-alignment.png" alt="align to center" />
 					</button>
-					<button class="align-text-right">
+					<button class="align-text-right" onclick="onSetTxtAlignment('right')">
 						<img src="img/ICONS/align-to-right.png" alt="align to right" />
 					</button>
 					<button class="text-color">
+						<input type="color" name="txt-fill" onchange="onSetFillColor(this.value)" />
 						<img src="img/ICONS/paint-board-and-brush.png" alt="text color" />
 					</button>
-					<!-- </article> -->
 				</section>
 			</section>
 		</section>

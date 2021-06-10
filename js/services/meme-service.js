@@ -135,10 +135,12 @@ function setLineText(text) {
 }
 
 function increaseFont() {
+	if (gMeme.lines[gMeme.selectedLineIdx].size > 100) return
 	gMeme.lines[gMeme.selectedLineIdx].size += 5
 }
 
 function decreaseFont() {
+	if (gMeme.lines[gMeme.selectedLineIdx].size < 30) return
 	gMeme.lines[gMeme.selectedLineIdx].size -= 5
 }
 
@@ -152,9 +154,8 @@ function moveLineDown() {
 
 function switchLine() {
 	const idx = gMeme.selectedLineIdx
-	if (gMeme.lines.length !== 1) {
-		gMeme.selectedLineIdx = idx === 0 ? 1 : 0
-	}
+	if (idx >= gMeme.lines.length - 1) gMeme.selectedLineIdx = 0
+	else gMeme.selectedLineIdx++
 	const elInput = document.querySelector('input[name="meme-text"]')
 	elInput.value = gMeme.lines[gMeme.selectedLineIdx].txt
 }
@@ -176,6 +177,17 @@ function addLine() {
 }
 
 function deleteLine() {
-	const idx = gMeme.selectedLineIdx
-	gMeme.lines.splice(idx, 1)
+	gMeme.lines[gMeme.selectedLineIdx].txt = ''
+}
+
+function setFillColor(color) {
+	gMeme.lines[gMeme.selectedLineIdx].txtColor = color
+}
+
+function setStrokeColor(color) {
+	gMeme.lines[gMeme.selectedLineIdx].strokeColor = color
+}
+
+function setTxtAlignment(alignment) {
+	gMeme.lines[gMeme.selectedLineIdx].align = alignment
 }

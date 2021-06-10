@@ -50,16 +50,37 @@ function showImageEditor() {
 	createCanvas()
 	onResizeCanvas()
 	window.addEventListener('resize', onResizeCanvas)
-	// drawImage()
 }
 
 function onAddLine() {
 	addLine()
+	switchLine()
 	drawImage()
+	focusInput()
 }
 
 function onDeleteLine() {
 	deleteLine()
 	switchLine()
 	drawImage()
+	focusInput()
+}
+
+function onSetFillColor(color) {
+	setFillColor(color)
+	drawImage()
+}
+
+function onSetStrokeColor(color) {
+	setStrokeColor(color)
+	drawImage()
+}
+
+function onSetTxtAlignment(alignment) {
+	setTxtAlignment(alignment)
+	drawImage()
+}
+
+function focusInput() {
+	document.querySelector('input[name=meme-text]').focus()
 }

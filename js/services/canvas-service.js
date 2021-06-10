@@ -29,8 +29,11 @@ function drawText() {
 		const { txt, size, align, txtColor, strokeColor, top } = line
 
 		// determine text position
-		const x = gElCanvas.width / 2
-		const y = idx === 0 ? top : idx === 1 ? gElCanvas.height - top / 2 : gElCanvas.height / 2
+		// const x = gElCanvas.width / 2
+		const x =
+			align === 'left' ? 100 : align === 'right' ? gElCanvas.width - 100 : gElCanvas.width / 2
+		const y =
+			idx === 0 ? top : idx === 1 ? gElCanvas.height - top / 2 : gElCanvas.height / 2 - 100 + top
 
 		gCtx.textAlign = align
 		gCtx.lineWidth = 2
@@ -46,12 +49,9 @@ function drawText() {
 		gCtx.strokeStyle = strokeColor
 		gCtx.strokeText(txt, x, y)
 
-		// highlight text
+		// highlight selected text
 		if (idx === selectedLineIdx) {
-			// gCtx.rect(30, y - size - 10, gElCanvas.width - 60, 100)
-			// gCtx.stroke()
-			gCtx.fillStyle = 'red'
-			gCtx.fillText(txt, x, y)
+			gCtx.strokeRect(30, y - size - 10, gElCanvas.width - 60, 40 + size)
 		}
 	})
 }
