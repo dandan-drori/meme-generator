@@ -10,19 +10,18 @@
 	<body onload="init()">
 		<nav class="main-nav flex align-center justify-between">
 			<article class="logo">
-				<a href="#">Next Gen Meme</a>
+				<a href="index.html">Next Gen Meme</a>
 			</article>
 			<ul class="nav-list flex align-center justify-center">
-				<li>
+				<li onclick="hideImageEditor()">
 					<a href="#">gallery</a>
 				</li>
-				<li>
-					<a href="#">saved</a>
+				<li onclick="initSavedMemes()">
+					<a href="saved.html">saved</a>
 				</li>
 			</ul>
 		</nav>
 		<main class="main-content">
-			<h1>Select an image to edit:</h1>
 			<header class="main-header flex align-center">
 				<input
 					type="search"
@@ -31,7 +30,7 @@
 					oninput="onSetFilter(this.value)"
 					autocomplete="off"
 				/>
-				<section class="keywords-container flex"></section>
+				<section class="keywords-container flex align-center"></section>
 			</header>
 			<section class="gallery grid"></section>
 		</main>
@@ -45,6 +44,7 @@
 					placeholder="Line text"
 					name="meme-text"
 					oninput="onChangeText(this.value)"
+					autocomplete="off"
 				/>
 				<section class="control-buttons">
 					<button class="move-line-down" onclick="onMoveLineDown()">
@@ -90,7 +90,15 @@
 					</button>
 				</section>
 
-				<div class="inputs">
+				<section class="font-style">
+					<select name="font-style" onchange="onSetFontStyle(this.value)">
+						<option value="IMPACT">Impact</option>
+						<option value="ARIAL">Arial</option>
+						<option value="SEGOEUI">SegoeUI</option>
+					</select>
+				</section>
+
+				<section class="inputs">
 					<input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
 
 					<form
@@ -106,12 +114,12 @@
 						</a>
 						<div class="share-container"></div>
 					</form>
-				</div>
+				</section>
 			</section>
 		</section>
 		<footer class="main-footer flex align-center justify-between">
 			<article class="logo">
-				<a href="#">Next Gen Meme</a>
+				<a href="index.html">Next Gen Meme</a>
 			</article>
 			<section class="copyright-container">
 				<article class="copyright">Copyright &copy; Dandan Drori LTD. 2021</article>

@@ -1,55 +1,5 @@
-var gKeywordsCountMap = {
-	trump: 0,
-	president: 0,
-	leader: 0,
-	dog: 0,
-	dogs: 0,
-	lick: 0,
-	love: 0,
-	baby: 0,
-	bed: 0,
-	sleep: 0,
-	cat: 0,
-	keyboard: 0,
-	fist: 0,
-	success: 0,
-	hands: 0,
-	big: 0,
-	size: 0,
-	surprised: 0,
-	shocked: 0,
-	kid: 0,
-	more: 0,
-	fake: 0,
-	evil: 0,
-	mean: 0,
-	laughing: 0,
-	laugh: 0,
-	crazy: 0,
-	together: 0,
-	wrestling: 0,
-	fight: 0,
-	hug: 0,
-	you: 0,
-	choose: 0,
-	fingers: 0,
-	toast: 0,
-	glass: 0,
-	wine: 0,
-	leonardo: 0,
-	dicaprio: 0,
-	'what if': 0,
-	'i told you': 0,
-	sunglasses: 0,
-	'one does not simply': 0,
-	hilarious: 0,
-	joke: 0,
-	putin: 0,
-	peace: 0,
-	'buzz lightyear': 0,
-	woody: 0,
-	toystory: 0,
-}
+'use strict'
+
 var gImgs = [
 	{
 		id: 1,
@@ -69,7 +19,29 @@ var gImgs = [
 	{
 		id: 4,
 		url: 'img/MEMES/4.jpg',
-		keywords: ['cat', 'sleep', 'keyboard'],
+		keywords: [
+			'sleep',
+			'cat',
+			'mouse',
+			'cute',
+			'kitten',
+			'whisker',
+			'fur',
+			'eye',
+			'pet',
+			'little',
+			'sit',
+			'domestic',
+			'animal',
+			'curiosity',
+			'young',
+			'looking',
+			'funny',
+			'hair',
+			'laptop',
+			'lazy',
+			'mammal',
+		],
 	},
 	{
 		id: 5,
@@ -152,17 +124,73 @@ var gMeme = {
 			align: 'center',
 			txtColor: 'white',
 			strokeColor: 'black',
+			fontStyle: 'Impact',
 			top: 100,
 		},
-		// {
-		// 	txt: '',
-		// 	size: 60,
-		// 	align: 'center',
-		// 	txtColor: 'white',
-		// 	strokeColor: 'black',
-		// 	top: 100,
-		// },
 	],
+}
+const KEYWORDS_KEY = 'keywords'
+var gKeywordsCountMap
+const SAVED_KEY = 'saved-memes'
+var gSavedImages
+
+function initKeywordsMap() {
+	if (loadFromStorage(KEYWORDS_KEY)) {
+		gKeywordsCountMap = loadFromStorage(KEYWORDS_KEY)
+		return
+	}
+	gKeywordsCountMap = {
+		trump: 0,
+		president: 0,
+		leader: 0,
+		dog: 0,
+		dogs: 0,
+		lick: 0,
+		love: 0,
+		baby: 0,
+		bed: 0,
+		sleep: 0,
+		cat: 0,
+		keyboard: 0,
+		fist: 0,
+		success: 0,
+		hands: 0,
+		big: 0,
+		size: 0,
+		surprised: 0,
+		shocked: 0,
+		kid: 0,
+		more: 0,
+		fake: 0,
+		evil: 0,
+		mean: 0,
+		laughing: 0,
+		laugh: 0,
+		crazy: 0,
+		together: 0,
+		wrestling: 0,
+		fight: 0,
+		hug: 0,
+		you: 0,
+		choose: 0,
+		fingers: 0,
+		toast: 0,
+		glass: 0,
+		wine: 0,
+		leonardo: 0,
+		dicaprio: 0,
+		'what if': 0,
+		'i told you': 0,
+		sunglasses: 0,
+		'one does not simply': 0,
+		hilarious: 0,
+		joke: 0,
+		putin: 0,
+		peace: 0,
+		'buzz lightyear': 0,
+		woody: 0,
+		toystory: 0,
+	}
 }
 
 function getSelectedImgId() {
@@ -205,10 +233,16 @@ function moveLineDown() {
 	gMeme.lines[gMeme.selectedLineIdx].top += diff
 }
 
-function switchLine() {
-	const idx = gMeme.selectedLineIdx
-	if (idx >= gMeme.lines.length - 1) gMeme.selectedLineIdx = 0
-	else gMeme.selectedLineIdx++
+function switchLine(jumpToIdx) {
+	if (jumpToIdx) {
+		gMeme.selectedLineIdx = jumpToIdx
+	} else {
+		const idx = gMeme.selectedLineIdx
+		if (idx >= gMeme.lines.length - 1) gMeme.selectedLineIdx = 0
+		else gMeme.selectedLineIdx++
+	}
+
+	// update input to show correct line
 	const elInput = document.querySelector('input[name="meme-text"]')
 	elInput.value = gMeme.lines[gMeme.selectedLineIdx].txt
 }
@@ -224,9 +258,11 @@ function addLine() {
 		align: 'center',
 		txtColor: 'white',
 		strokeColor: 'black',
+		fontStyle: 'Impact',
 		top: 100,
 	}
 	gMeme.lines.push(newLine)
+	return gMeme.lines.indexOf(newLine)
 }
 
 function deleteLine() {
@@ -251,13 +287,14 @@ function setFilter(search) {
 		img.keywords.forEach(keyword => {
 			if (keyword.toLowerCase().startsWith(search.toLowerCase())) {
 				flag = true
+				if (search) gKeywordsCountMap[keyword]++
 			}
 			if (flag) {
 				img.passedSearch = true
-				gKeywordsCountMap[keyword]++
 			} else img.passedSearch = false
 		})
 	})
+	saveToStorage(KEYWORDS_KEY, gKeywordsCountMap)
 }
 
 function getImgs() {
@@ -266,4 +303,25 @@ function getImgs() {
 
 function getKeywordsMap() {
 	return gKeywordsCountMap
+}
+
+function getGMeme() {
+	return gMeme
+}
+
+function setSavedMemes() {
+	gSavedImages = loadFromStorage(SAVED_KEY) || []
+}
+
+function getSavedMemes() {
+	let memes = []
+	if (loadFromStorage(SAVED_KEY)) {
+		memes = loadFromStorage(SAVED_KEY)
+	}
+	return memes
+}
+
+function setFontStyle(fontStyle) {
+	var formattedStyle = fontStyle.charAt(0) + fontStyle.substring(1).toLowerCase()
+	gMeme.lines[gMeme.selectedLineIdx].fontStyle = x
 }

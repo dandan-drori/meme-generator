@@ -1,5 +1,10 @@
+'use strict'
+
 var gElCanvas
 var gCtx
+var gIsLocalImage = false
+var gOnImgReady
+var gEv
 
 function createCanvas() {
 	gElCanvas = document.querySelector('.canvas')
@@ -26,7 +31,7 @@ function drawText() {
 	const lines = getLines()
 	const selectedLineIdx = getSelectedLineIdx()
 	lines.forEach((line, idx) => {
-		const { txt, size, align, txtColor, strokeColor, top } = line
+		const { txt, size, align, txtColor, strokeColor, fontStyle, top } = line
 
 		// determine text position
 		const x =
@@ -36,9 +41,8 @@ function drawText() {
 
 		gCtx.textAlign = align
 		gCtx.lineWidth = 2
-		gCtx.font = `${size}px Impact`
 		// CALCULATE SIZE ACCORDING TO TEXT LENGTH
-		// gCtx.font = `${size - txt.length * 0.9}px Impact`
+		gCtx.font = `${size - txt.length * 0.9}px ${fontStyle}`
 		gCtx.fillStyle = txtColor
 		// MEASURE TEXT BEFORE WRITING IT
 		// if (gCtx.measureText(txt).width > 430) {
@@ -50,7 +54,26 @@ function drawText() {
 
 		// highlight selected text
 		if (idx === selectedLineIdx) {
+			gCtx.strokeStyle = 'black'
 			gCtx.strokeRect(30, y - size - 10, gElCanvas.width - 60, 40 + size)
 		}
 	})
+}
+
+function renderCanvas() {
+	if (!gIsLocalImage) {
+		drawImage()
+		return
+	}
+	drawLocalImage()
+}
+
+function drawLocalImage() {
+	var img = new Image()
+	img.onload = gOnImgReady.bind(null, img)
+	img.src = gEv.target.result
+	img.onload = () => {
+		gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+		drawText()
+	}
 }

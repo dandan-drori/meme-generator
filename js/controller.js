@@ -1,4 +1,7 @@
+'use strict'
+
 function init() {
+	initKeywordsMap()
 	setFilter('')
 	renderKeywords()
 	renderGallery()
@@ -19,12 +22,12 @@ function renderGallery() {
 function onResizeCanvas() {
 	const elContainer = document.querySelector('.canvas-container')
 	resizeCanvas(elContainer)
-	drawImage()
+	renderCanvas()
 }
 
 function onChangeText(text) {
 	setLineText(text)
-	drawImage()
+	renderCanvas()
 }
 
 function onUpdateMeme(imgId) {
@@ -34,27 +37,27 @@ function onUpdateMeme(imgId) {
 
 function onIncreaseFont() {
 	increaseFont()
-	drawImage()
+	renderCanvas()
 }
 
 function onDecreaseFont() {
 	decreaseFont()
-	drawImage()
+	renderCanvas()
 }
 
 function onMoveLineUp() {
 	moveLineUp()
-	drawImage()
+	renderCanvas()
 }
 
 function onMoveLineDown() {
 	moveLineDown()
-	drawImage()
+	renderCanvas()
 }
 
 function onSwitchLine() {
 	switchLine()
-	drawImage()
+	renderCanvas()
 }
 
 function showImageEditor() {
@@ -63,35 +66,36 @@ function showImageEditor() {
 	createCanvas()
 	onResizeCanvas()
 	window.addEventListener('resize', onResizeCanvas)
+	document.querySelector('input[name=meme-text]').focus()
 }
 
 function onAddLine() {
-	addLine()
-	switchLine()
-	drawImage()
+	const idx = addLine()
+	switchLine(idx)
+	renderCanvas()
 	focusInput()
 }
 
 function onDeleteLine() {
 	deleteLine()
 	switchLine()
-	drawImage()
+	renderCanvas()
 	focusInput()
 }
 
 function onSetFillColor(color) {
 	setFillColor(color)
-	drawImage()
+	renderCanvas()
 }
 
 function onSetStrokeColor(color) {
 	setStrokeColor(color)
-	drawImage()
+	renderCanvas()
 }
 
 function onSetTxtAlignment(alignment) {
 	setTxtAlignment(alignment)
-	drawImage()
+	renderCanvas()
 }
 
 function focusInput() {
@@ -104,21 +108,18 @@ function downloadImg(elLink) {
 }
 
 function onImgInput(ev) {
-	loadImageFromInput(ev, drawImage)
+	loadImageFromInput(ev, renderCanvas)
 }
 
 function loadImageFromInput(ev, onImageReady) {
+	gIsLocalImage = true
+	gOnImgReady = onImageReady
 	document.querySelector('.share-container').innerHTML = ''
 	var reader = new FileReader()
 
 	reader.onload = function (ev) {
-		var img = new Image()
-		img.onload = onImageReady.bind(null, img)
-		img.src = ev.target.result
-		img.onload = () => {
-			gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-			drawText()
-		}
+		gEv = ev
+		renderCanvas()
 	}
 	reader.readAsDataURL(ev.target.files[0])
 }
@@ -126,6 +127,7 @@ function loadImageFromInput(ev, onImageReady) {
 function onSetFilter(search) {
 	setFilter(search)
 	renderGallery()
+	renderKeywords()
 }
 
 function renderKeywords() {
@@ -138,11 +140,66 @@ function renderKeywords() {
 	}
 	const strHtmls = cropped.map(keyword => {
 		const count = keywordsMap[keyword]
-		return `<article style="font-size:${16 + count}px; font-weight: ${
-			400 + count * 10
-		};" onclick="onSetFilter('${keyword}')">
+		const fontSize = count <= 400 ? 16 + count / 20 : 36
+		const fontWeight = count <= 300 ? 400 + count : 700
+		return `<article style="font-size:${fontSize}px; font-weight: ${fontWeight};" 
+                onclick="onSetFilter('${keyword}')">
                     ${keyword}
                 </article>`
 	})
 	document.querySelector('.keywords-container').innerHTML = strHtmls.join('')
+}
+
+function hideImageEditor() {
+	if (location.pathname === '/saved.html') {
+		location.href = 'index.html'
+		return
+	}
+
+	document.querySelector('.main-content').style.display = 'block'
+	document.querySelector('.image-editor').style.display = 'none'
+	window.removeEventListener('resize', onResizeCanvas)
+	resetCanvas()
+}
+
+function resetCanvas() {
+	gMeme.lines.forEach(line => (line.txt = ''))
+	gMeme.selectedLineIdx = 0
+	document.querySelector('input[name=meme-text]').value = ''
+}
+
+function onSaveMemes() {
+	var memes = getSavedMemes()
+	const meme = getGMeme()
+	memes.push(meme)
+	saveToStorage(SAVED_KEY, memes)
+}
+
+function initSavedMemes() {
+	setSavedMemes()
+	setTimeout(renderSavedMemes, 300)
+}
+
+// TODO: :
+function renderSavedMemes() {
+	const savedMemes = getSavedMemes()
+	var elSavedMemes
+	document.body.onload(() => {
+		elSavedMemes = document.querySelector('.saved-images')
+	})
+	if (!savedMemes || !savedMemes.length) {
+		elSavedMemes.innerHTML = 'No saved memes'
+		return
+	}
+	var imgContent = gElCanvas.toDataURL('image/jpeg')
+	console.log('imgContent', imgContent)
+	// elLink.href = imgContent
+	var strHtmls = savedMemes.map(savedMeme => {
+		return `<canvas class="saved-canvas"></canvas>`
+	})
+}
+
+function onSetFontStyle(fontStyle) {
+	setFontStyle(fontStyle)
+	renderCanvas()
 }
