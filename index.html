@@ -30,7 +30,8 @@
 					oninput="onSetFilter(this.value)"
 					autocomplete="off"
 				/>
-				<section class="keywords-container flex align-center"></section>
+				<section class="keywords-container flex align-center justify-center"></section>
+				<button class="btn-more">More</button>
 			</header>
 			<section class="gallery grid"></section>
 		</main>
@@ -108,10 +109,8 @@
 						onsubmit="uploadImg(this, event)"
 					>
 						<input name="img" id="imgData" type="hidden" />
-						<button class="btn" type="submit">Publish</button>
-						<a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">
-							Download as jpeg
-						</a>
+						<button class="btn" type="submit">Share</button>
+						<a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg"> Download </a>
 						<div class="share-container"></div>
 					</form>
 				</section>

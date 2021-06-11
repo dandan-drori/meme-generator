@@ -289,10 +289,10 @@ function setFilter(search) {
 				flag = true
 				if (search) gKeywordsCountMap[keyword]++
 			}
-			if (flag) {
-				img.passedSearch = true
-			} else img.passedSearch = false
 		})
+		if (flag) {
+			img.passedSearch = true
+		} else img.passedSearch = false
 	})
 	saveToStorage(KEYWORDS_KEY, gKeywordsCountMap)
 }

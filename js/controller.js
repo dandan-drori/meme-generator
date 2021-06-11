@@ -135,7 +135,10 @@ function renderKeywords() {
 	const keywords = Object.keys(keywordsMap)
 	// TODO: get most searched (find max in keywordsMap)
 	let cropped = []
-	for (let i = 0; i < 6 * 3; i += 3) {
+	var containerW = document.querySelector('.keywords-container').clientWidth
+	let wordsToRenderCount =
+		containerW > 400 ? 6 : containerW > 350 ? 5 : containerW > 300 ? 4 : containerW > 250 ? 3 : 2
+	for (let i = 0; i < wordsToRenderCount * 3; i += 3) {
 		cropped.push(keywords[i])
 	}
 	const strHtmls = cropped.map(keyword => {
