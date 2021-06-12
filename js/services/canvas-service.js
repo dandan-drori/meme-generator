@@ -5,6 +5,7 @@ var gCtx
 var gIsLocalImage = false
 var gOnImgReady
 var gEv
+var gIsMarkForExport = false
 
 function createCanvas() {
 	gElCanvas = document.querySelector('.canvas')
@@ -41,21 +42,22 @@ function drawText() {
 
 		gCtx.textAlign = align
 		gCtx.lineWidth = 2
-		// CALCULATE SIZE ACCORDING TO TEXT LENGTH
-		gCtx.font = `${size - txt.length * 0.9}px ${fontStyle}`
+
+		// calculate size according to text length
+		const w = window.innerWidth
+		const factor = w < 400 ? 2 : w < 600 ? 1.8 : w < 800 ? 1.3 : w < 1000 ? 1.1 : 0.9
+		var fontSize = size - txt.length * factor
+		if (fontSize < 25) fontSize = 30
+		gCtx.font = `${fontSize}px ${fontStyle}`
 		gCtx.fillStyle = txtColor
-		// MEASURE TEXT BEFORE WRITING IT
-		// if (gCtx.measureText(txt).width > 430) {
-		// gCtx.font = `${size - 10}px Impact`
-		// }
 		gCtx.fillText(txt, x, y)
 		gCtx.strokeStyle = strokeColor
 		gCtx.strokeText(txt, x, y)
 
 		// highlight selected text
-		if (idx === selectedLineIdx) {
+		if (!gIsMarkForExport && idx === selectedLineIdx) {
 			gCtx.strokeStyle = 'black'
-			gCtx.strokeRect(30, y - size - 10, gElCanvas.width - 60, 40 + size)
+			gCtx.strokeRect(30, y - fontSize - 10, gElCanvas.width - 60, 20 + fontSize)
 		}
 	})
 }
@@ -76,4 +78,14 @@ function drawLocalImage() {
 		gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 		drawText()
 	}
+}
+
+function markForExport() {
+	gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+	gIsMarkForExport = true
+	renderCanvas()
+}
+
+function getCanvas() {
+	return gElCanvas
 }

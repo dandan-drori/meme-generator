@@ -8,17 +8,17 @@ function uploadImg(elForm, ev) {
 	function onSuccess(uploadedImgUrl) {
 		uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
 		document.querySelector('.share-container').innerHTML = `
-        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+        <a class="share-link" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
            Share   
         </a>`
 	}
 	let inputVal = elForm.querySelector('input').value
+	elForm.querySelector('.btn-share').style.opacity = '0'
 	doUploadImg(elForm, onSuccess, inputVal)
 }
 
 function doUploadImg(elForm, onSuccess) {
 	var formData = new FormData(elForm)
-	console.log('doUploadImg -> formData', formData)
 	fetch('//ca-upload.com/here/upload.php', {
 		method: 'POST',
 		body: formData,

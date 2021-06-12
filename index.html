@@ -12,15 +12,17 @@
 			<article class="logo">
 				<a href="index.html">Next Gen Meme</a>
 			</article>
+
 			<ul class="nav-list flex align-center justify-center">
 				<li onclick="hideImageEditor()">
 					<a href="#">gallery</a>
 				</li>
-				<li onclick="initSavedMemes()">
+				<li>
 					<a href="saved.html">saved</a>
 				</li>
 			</ul>
 		</nav>
+
 		<main class="main-content">
 			<header class="main-header flex align-center">
 				<input
@@ -33,12 +35,15 @@
 				<section class="keywords-container flex align-center justify-center"></section>
 				<button class="btn-more">More</button>
 			</header>
+
 			<section class="gallery grid"></section>
 		</main>
+
 		<section class="image-editor flex align-center justify-between">
 			<div class="canvas-container">
 				<canvas class="canvas"></canvas>
 			</div>
+
 			<section class="control-box flex flex-column justify-around align-center">
 				<input
 					type="text"
@@ -47,6 +52,7 @@
 					oninput="onChangeText(this.value)"
 					autocomplete="off"
 				/>
+
 				<section class="control-buttons">
 					<button class="move-line-down" onclick="onMoveLineDown()">
 						<p>🠗</p>
@@ -99,23 +105,48 @@
 					</select>
 				</section>
 
-				<section class="inputs">
-					<input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
+				<section class="save-meme">
+					<button class="btn-save" onclick="onSaveMeme()">Save</button>
+				</section>
 
-					<form
-						action=""
-						method="POST"
-						enctype="multipart/form-data"
-						onsubmit="uploadImg(this, event)"
-					>
-						<input name="img" id="imgData" type="hidden" />
-						<button class="btn" type="submit">Share</button>
-						<a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg"> Download </a>
-						<div class="share-container"></div>
-					</form>
+				<section class="display-inputs flex flex-column align-center justify-center">
+					<button onclick="onViewMoreActions(this)" class="more-actions">
+						<p>More Actions</p>
+					</button>
+					<section class="inputs">
+						<form
+							action=""
+							method="POST"
+							enctype="multipart/form-data"
+							onsubmit="uploadImg(this, event)"
+							class="flex align-center justify-between"
+						>
+							<button class="btn-upload" type="button">
+								<input
+									type="file"
+									class="file-input btn"
+									name="image"
+									onchange="onImgInput(event)"
+								/>
+								<p>Upload</p>
+							</button>
+							<input name="img" id="imgData" type="hidden" />
+
+							<button class="btn-share" type="submit">
+								<p>Share</p>
+							</button>
+							<button class="btn-download">
+								<p>
+									<a href="#" onclick="downloadImg(this)" download="my-img.jpg"> Download </a>
+								</p>
+							</button>
+							<div class="share-container"></div>
+						</form>
+					</section>
 				</section>
 			</section>
 		</section>
+
 		<footer class="main-footer flex align-center justify-between">
 			<article class="logo">
 				<a href="index.html">Next Gen Meme</a>
@@ -124,11 +155,12 @@
 				<article class="copyright">Copyright &copy; Dandan Drori LTD. 2021</article>
 			</section>
 		</footer>
+
 		<script src="js/services/utils-service.js"></script>
 		<script src="js/services/storage-service.js"></script>
-		<script src="js/services/upload-service.js"></script>
 		<script src="js/services/canvas-service.js"></script>
 		<script src="js/services/meme-service.js"></script>
+		<script src="js/services/upload-service.js"></script>
 		<script src="js/controller.js"></script>
 	</body>
 </html>

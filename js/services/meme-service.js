@@ -132,7 +132,7 @@ var gMeme = {
 const KEYWORDS_KEY = 'keywords'
 var gKeywordsCountMap
 const SAVED_KEY = 'saved-memes'
-var gSavedImages
+var gSavedMemes
 
 function initKeywordsMap() {
 	if (loadFromStorage(KEYWORDS_KEY)) {
@@ -310,15 +310,14 @@ function getGMeme() {
 }
 
 function setSavedMemes() {
-	gSavedImages = loadFromStorage(SAVED_KEY) || []
+	gSavedMemes = loadFromStorage(SAVED_KEY) || []
 }
 
 function getSavedMemes() {
-	let memes = []
-	if (loadFromStorage(SAVED_KEY)) {
-		memes = loadFromStorage(SAVED_KEY)
+	if (!gSavedMemes || !gSavedMemes.length) {
+		return loadFromStorage(SAVED_KEY)
 	}
-	return memes
+	return gSavedMemes
 }
 
 function setFontStyle(fontStyle) {

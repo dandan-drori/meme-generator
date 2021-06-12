@@ -171,38 +171,46 @@ function resetCanvas() {
 	document.querySelector('input[name=meme-text]').value = ''
 }
 
-function onSaveMemes() {
+function onSaveMeme() {
+	const canvas = getCanvas()
+	const imgContent = canvas.toDataURL('image/jpeg')
 	var memes = getSavedMemes()
-	const meme = getGMeme()
-	memes.push(meme)
+	memes.push(imgContent)
 	saveToStorage(SAVED_KEY, memes)
 }
 
 function initSavedMemes() {
 	setSavedMemes()
-	setTimeout(renderSavedMemes, 300)
+	renderSavedMemes()
 }
 
-// TODO: :
 function renderSavedMemes() {
 	const savedMemes = getSavedMemes()
-	var elSavedMemes
-	document.body.onload(() => {
-		elSavedMemes = document.querySelector('.saved-images')
-	})
+	const elSavedMemes = document.querySelector('.saved-images')
+
 	if (!savedMemes || !savedMemes.length) {
 		elSavedMemes.innerHTML = 'No saved memes'
 		return
 	}
-	var imgContent = gElCanvas.toDataURL('image/jpeg')
-	console.log('imgContent', imgContent)
-	// elLink.href = imgContent
-	var strHtmls = savedMemes.map(savedMeme => {
-		return `<canvas class="saved-canvas"></canvas>`
+
+	savedMemes.forEach(memeUrl => {
+		const image = new Image()
+		image.src = memeUrl
+		const article = document.createElement('article')
+		article.appendChild(image)
+		elSavedMemes.appendChild(article)
 	})
 }
 
 function onSetFontStyle(fontStyle) {
 	setFontStyle(fontStyle)
 	renderCanvas()
+}
+
+function onViewMoreActions(elBtn) {
+	markForExport()
+	document.querySelector('.inputs form .btn-download').classList.toggle('transition')
+	document.querySelector('.inputs form .btn-upload').classList.toggle('transition')
+	document.querySelector('.inputs form .btn-share').classList.toggle('transition')
+	elBtn.classList.toggle('hidden')
 }
