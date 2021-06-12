@@ -84,6 +84,7 @@ button {
 .nav-list {
 	height: 5rem;
 	list-style: none;
+	transition: transform 0.6s;
 }
 
 .nav-list > li {
@@ -196,6 +197,7 @@ button {
 
 .gallery img {
 	width: 15rem;
+	height: 15rem;
 	cursor: pointer;
 	transition: transform 0.5s;
 	border-radius: 1rem;
@@ -300,6 +302,17 @@ button {
 	padding: 24px;
 	z-index: 1;
 	cursor: pointer;
+}
+
+.save-meme .btn-save {
+	display: none;
+	max-width: unset;
+}
+
+.save-meme .btn-save p {
+	width: auto;
+	padding: 0.4rem 1rem;
+	font-size: 1.1rem;
 }
 
 .inputs {
@@ -429,6 +442,76 @@ button {
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
+/* saved memes page styles */
+
+.empty-msg {
+	color: white;
+	font-size: 1.5rem;
+	margin-top: 2rem;
+}
+
+.btn-delete-saved,
+.btn-download-saved {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	background-color: #fefefe;
+	border-radius: 0.2rem;
+	padding: 0.2rem 0.3rem;
+	border: none;
+}
+
+.btn-download-saved {
+	left: 10px;
+}
+
+.btn-delete-saved:hover,
+.btn-download-saved:hover {
+	background-color: #ccc;
+}
+
+.download-saved-link {
+	color: #888;
+	font-size: 1rem;
+}
+
+.download-saved-link .download-saved-img {
+	width: 15px;
+	height: 15px;
+	border-radius: 0;
+}
+
+.hamburger {
+	display: none;
+	cursor: pointer;
+	padding: 0.9rem 0.3rem;
+	margin: 0.5rem 0;
+}
+
+.line {
+	background-color: #050505;
+	width: 25px;
+	height: 4px;
+	position: relative;
+	border-radius: 1rem;
+}
+
+.line::before,
+.line::after {
+	content: '';
+	background-color: #050505;
+	width: 35px;
+	height: 4px;
+	position: absolute;
+	top: 9px;
+	border-radius: 1rem;
+}
+
+.line::after {
+	top: -9px;
+}
+
 /* media queries */
 
 @media (max-width: 1200px) {
@@ -476,7 +559,7 @@ button {
 
 	.main-nav .logo a,
 	.main-footer .logo a {
-		font-size: 1.4rem;
+		font-size: 1.9rem;
 	}
 
 	.gallery {
@@ -510,5 +593,38 @@ button {
 	.inputs form .btn-download p,
 	.inputs form .btn-upload p {
 		padding: 0.7rem 2.2rem;
+	}
+}
+
+@media (max-width: 550px) {
+	.hamburger {
+		display: block;
+		z-index: 1;
+	}
+
+	.nav-list {
+		transform: translateX(100%);
+		position: absolute;
+		height: 100vh;
+		width: 50%;
+		top: 0;
+		right: 0;
+		flex-direction: column;
+		background-color: #fff;
+		border-radius: 0.5rem 0 0 0.5rem;
+		z-index: 1;
+		justify-content: flex-start;
+	}
+
+	.nav-list.open {
+		transform: translateX(0);
+	}
+
+	.nav-list li {
+		margin: 1rem 0;
+	}
+
+	.nav-list li a {
+		color: #050505;
 	}
 }

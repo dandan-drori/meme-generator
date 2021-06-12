@@ -103,7 +103,7 @@ function focusInput() {
 }
 
 function downloadImg(elLink) {
-	var imgContent = gElCanvas.toDataURL('image/jpeg')
+	const imgContent = gElCanvas.toDataURL('image/jpeg')
 	elLink.href = imgContent
 }
 
@@ -189,15 +189,35 @@ function renderSavedMemes() {
 	const elSavedMemes = document.querySelector('.saved-images')
 
 	if (!savedMemes || !savedMemes.length) {
-		elSavedMemes.innerHTML = 'No saved memes'
+		elSavedMemes.innerHTML = '<p class="empty-msg">No saved memes :(</p>'
 		return
 	}
 
+	elSavedMemes.innerHTML = ''
 	savedMemes.forEach(memeUrl => {
 		const image = new Image()
 		image.src = memeUrl
 		const article = document.createElement('article')
+		article.style.position = 'relative'
 		article.appendChild(image)
+		const deleteBtn = document.createElement('button')
+		deleteBtn.onclick = onRemoveSavedMeme
+		deleteBtn.classList.add('btn-delete-saved')
+		deleteBtn.innerText = 'X'
+		article.appendChild(deleteBtn)
+		const downloadBtn = document.createElement('button')
+		downloadBtn.onclick = onDownloadSavedMeme
+		downloadBtn.classList.add('btn-download-saved')
+		const downloadLink = document.createElement('a')
+		downloadLink.href = '#'
+		downloadLink.download = 'my-img.jpg'
+		downloadLink.classList.add('download-saved-link')
+		const downloadImg = document.createElement('img')
+		downloadImg.src = '../img/ICONS/download.png'
+		downloadImg.classList.add('download-saved-img')
+		downloadLink.appendChild(downloadImg)
+		downloadBtn.appendChild(downloadLink)
+		article.appendChild(downloadBtn)
 		elSavedMemes.appendChild(article)
 	})
 }
@@ -212,5 +232,31 @@ function onViewMoreActions(elBtn) {
 	document.querySelector('.inputs form .btn-download').classList.toggle('transition')
 	document.querySelector('.inputs form .btn-upload').classList.toggle('transition')
 	document.querySelector('.inputs form .btn-share').classList.toggle('transition')
+	document.querySelector('.save-meme .btn-save').style.display = 'block'
 	elBtn.classList.toggle('hidden')
+}
+
+function onRemoveSavedMeme(ev) {
+	const elBtn = ev.target
+	const elArticle = elBtn.parentNode
+	const elImg = elArticle.childNodes[0]
+	const url = elImg.src
+	const idx = gSavedMemes.findIndex(imgUrl => imgUrl === url)
+	if (idx === -1) return
+	gSavedMemes.splice(idx, 1)
+	saveToStorage(SAVED_KEY, gSavedMemes)
+	renderSavedMemes()
+}
+
+function onDownloadSavedMeme(ev) {
+	const elLink = ev.target
+	const elBtn = elLink.parentNode
+	const elArticle = elBtn.parentNode
+	const elImg = elArticle.childNodes[0]
+	const url = elImg.src
+	elLink.href = url
+}
+
+function toggleMobileMenu() {
+	document.querySelector('.nav-list').classList.toggle('open')
 }
