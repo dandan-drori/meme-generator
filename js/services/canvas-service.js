@@ -23,9 +23,10 @@ function drawImage() {
 	}
 }
 
-function resizeCanvas(elContainer) {
-	gElCanvas.width = elContainer.offsetWidth
+function resizeCanvas(elContainer, elImg) {
 	gElCanvas.height = elContainer.offsetHeight
+	if (!elImg) gElCanvas.width = elContainer.offsetWidth
+	else gElCanvas.width = elImg.naturalWidth / (elImg.naturalHeight / elContainer.offsetHeight)
 }
 
 function drawText() {

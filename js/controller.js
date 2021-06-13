@@ -12,16 +12,16 @@ function renderGallery() {
 	var strHtmls = imgs.map(img => {
 		if (img.passedSearch) {
 			return `<article>
-                        <img src="${img.url}" onclick="onUpdateMeme(${img.id})"/>
+                        <img src="${img.url}" onclick="onUpdateMeme(this, ${img.id})"/>
                     </article>`
 		}
 	})
 	document.querySelector('.gallery').innerHTML = strHtmls.join('')
 }
 
-function onResizeCanvas() {
+function onResizeCanvas(elImg) {
 	const elContainer = document.querySelector('.canvas-container')
-	resizeCanvas(elContainer)
+	resizeCanvas(elContainer, elImg)
 	renderCanvas()
 }
 
@@ -30,9 +30,9 @@ function onChangeText(text) {
 	renderCanvas()
 }
 
-function onUpdateMeme(imgId) {
+function onUpdateMeme(elImg, imgId) {
 	setSelectedImgId(imgId)
-	showImageEditor()
+	showImageEditor(elImg)
 }
 
 function onIncreaseFont() {
@@ -60,11 +60,11 @@ function onSwitchLine() {
 	renderCanvas()
 }
 
-function showImageEditor() {
+function showImageEditor(elImg) {
 	document.querySelector('.main-content').style.display = 'none'
 	document.querySelector('.image-editor').style.display = 'flex'
 	createCanvas()
-	onResizeCanvas()
+	onResizeCanvas(elImg)
 	window.addEventListener('resize', onResizeCanvas)
 	document.querySelector('input[name=meme-text]').focus()
 }
@@ -265,17 +265,17 @@ function toggleMobileMenu() {
 }
 
 // TODO:
-// 3. fix image-editor - make 2 rows for buttons, fix fontStyle styling
 // 4. fix saved-memes - save the gMeme to localStorage with each imageUrl to
 // allow opening the canvas from there
 // 7. add functionality to the "more" button
 // 10. fix proportions on mobile
 
 // IN PROGRESS:
-// 2. fix canvas height - make it fit to screen height
+// 3. fix image-editor - make 2 rows for buttons, fix fontStyle styling
 
 // DONE:
 // 1. fix renderSavedMemes to use map and strHtmls
+// 2. fix canvas height - make it fit to screen height
 // 5. fix search img - make it search icon and then apply padding / absolute
 // 6. add styling to mobile menu
 // 8. fix keywords font-size scaling (define specific sizes)
