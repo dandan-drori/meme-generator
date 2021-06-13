@@ -322,5 +322,5 @@ function getSavedMemes() {
 
 function setFontStyle(fontStyle) {
 	var formattedStyle = fontStyle.charAt(0) + fontStyle.substring(1).toLowerCase()
-	gMeme.lines[gMeme.selectedLineIdx].fontStyle = x
+	gMeme.lines[gMeme.selectedLineIdx].fontStyle = formattedStyle
 }

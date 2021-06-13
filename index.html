@@ -8,6 +8,7 @@
 		<title>Meme Generator</title>
 	</head>
 	<body onload="init()">
+		<aside class="backdrop" onclick="toggleMobileMenu()"></aside>
 		<nav class="main-nav flex align-center justify-between">
 			<article class="logo">
 				<a href="index.html">Next Gen Meme</a>
@@ -25,16 +26,18 @@
 				<article class="line"></article>
 			</section>
 		</nav>
-
 		<main class="main-content">
-			<header class="main-header flex align-center">
-				<input
-					type="search"
-					name="search"
-					placeholder="Search"
-					oninput="onSetFilter(this.value)"
-					autocomplete="off"
-				/>
+			<header class="main-header flex align-center justify-center">
+				<section class="search-wrapper">
+					<input
+						type="text"
+						name="search"
+						placeholder="Search"
+						oninput="onSetFilter(this.value)"
+						autocomplete="off"
+					/>
+					<img src="img/ICONS/search.png" alt="magnifying glass" />
+				</section>
 				<section class="keywords-container flex align-center justify-center"></section>
 				<button class="btn-more">More</button>
 			</header>

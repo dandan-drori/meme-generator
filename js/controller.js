@@ -137,18 +137,33 @@ function renderKeywords() {
 	let cropped = []
 	var containerW = document.querySelector('.keywords-container').clientWidth
 	let wordsToRenderCount =
-		containerW > 400 ? 6 : containerW > 350 ? 5 : containerW > 300 ? 4 : containerW > 250 ? 3 : 2
+		containerW > 500
+			? 8
+			: containerW > 450
+			? 7
+			: containerW > 400
+			? 6
+			: containerW > 350
+			? 5
+			: containerW > 300
+			? 4
+			: containerW > 250
+			? 3
+			: 2
 	for (let i = 0; i < wordsToRenderCount * 3; i += 3) {
 		cropped.push(keywords[i])
 	}
 	const strHtmls = cropped.map(keyword => {
 		const count = keywordsMap[keyword]
-		const fontSize = count <= 400 ? 16 + count / 20 : 36
-		const fontWeight = count <= 300 ? 400 + count : 700
-		return `<article style="font-size:${fontSize}px; font-weight: ${fontWeight};" 
+		let fontSize = count + 16
+		if (fontSize > 25) fontSize = 25
+		let fontWeight = count * 10 + 400
+		if (fontWeight > 700) fontWeight = 700
+		return `
+		<article style="font-size:${fontSize}px; font-weight: ${fontWeight};" 
                 onclick="onSetFilter('${keyword}')">
                     ${keyword}
-                </article>`
+        </article>`
 	})
 	document.querySelector('.keywords-container').innerHTML = strHtmls.join('')
 }
@@ -193,33 +208,20 @@ function renderSavedMemes() {
 		return
 	}
 
-	elSavedMemes.innerHTML = ''
-	savedMemes.forEach(memeUrl => {
-		const image = new Image()
-		image.src = memeUrl
-		const article = document.createElement('article')
-		article.style.position = 'relative'
-		article.appendChild(image)
-		const deleteBtn = document.createElement('button')
-		deleteBtn.onclick = onRemoveSavedMeme
-		deleteBtn.classList.add('btn-delete-saved')
-		deleteBtn.innerText = 'X'
-		article.appendChild(deleteBtn)
-		const downloadBtn = document.createElement('button')
-		downloadBtn.onclick = onDownloadSavedMeme
-		downloadBtn.classList.add('btn-download-saved')
-		const downloadLink = document.createElement('a')
-		downloadLink.href = '#'
-		downloadLink.download = 'my-img.jpg'
-		downloadLink.classList.add('download-saved-link')
-		const downloadImg = document.createElement('img')
-		downloadImg.src = '../img/ICONS/download.png'
-		downloadImg.classList.add('download-saved-img')
-		downloadLink.appendChild(downloadImg)
-		downloadBtn.appendChild(downloadLink)
-		article.appendChild(downloadBtn)
-		elSavedMemes.appendChild(article)
+	const strHtmls = savedMemes.map(memeUrl => {
+		return `
+		<article style="position: relative;">
+			<img src="${memeUrl}" />
+			<button onclick="onRemoveSavedMeme(this)" class="btn-delete-saved">X</button>
+			<button onclick="onDownloadSavedMeme(event)" class="btn-download-saved">
+				<a href="#" download="my-img.jpg" class="download-saved-link">
+					<img src="../img/ICONS/download.png" class="download-saved-img"/>
+				</a>
+			</button>
+		</article>
+		`
 	})
+	elSavedMemes.innerHTML = strHtmls.join('')
 }
 
 function onSetFontStyle(fontStyle) {
@@ -236,10 +238,9 @@ function onViewMoreActions(elBtn) {
 	elBtn.classList.toggle('hidden')
 }
 
-function onRemoveSavedMeme(ev) {
-	const elBtn = ev.target
+function onRemoveSavedMeme(elBtn) {
 	const elArticle = elBtn.parentNode
-	const elImg = elArticle.childNodes[0]
+	const elImg = elArticle.childNodes[1]
 	const url = elImg.src
 	const idx = gSavedMemes.findIndex(imgUrl => imgUrl === url)
 	if (idx === -1) return
@@ -259,4 +260,23 @@ function onDownloadSavedMeme(ev) {
 
 function toggleMobileMenu() {
 	document.querySelector('.nav-list').classList.toggle('open')
+	document.body.classList.toggle('menu-open')
+	document.querySelector('.line').classList.toggle('menu-open')
 }
+
+// TODO:
+// 3. fix image-editor - make 2 rows for buttons, fix fontStyle styling
+// 4. fix saved-memes - save the gMeme to localStorage with each imageUrl to
+// allow opening the canvas from there
+// 7. add functionality to the "more" button
+// 10. fix proportions on mobile
+
+// IN PROGRESS:
+// 2. fix canvas height - make it fit to screen height
+
+// DONE:
+// 1. fix renderSavedMemes to use map and strHtmls
+// 5. fix search img - make it search icon and then apply padding / absolute
+// 6. add styling to mobile menu
+// 8. fix keywords font-size scaling (define specific sizes)
+// 9. backdrop
